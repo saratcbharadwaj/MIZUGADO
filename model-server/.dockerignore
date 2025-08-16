@@ -1,0 +1,7 @@
+__pycache__/
+*.__pyc
+*.pyo
+*.pyd
+.env
+*.git
+*.ipynb

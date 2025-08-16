@@ -1,0 +1,30 @@
+# IDE and OS files
+.idea/
+.vscode/
+*.iml
+*.DS_Store
+.env
+
+# Java / Maven build artifacts
+backend/target/
+backend/pom.xml.tag
+backend/pom.xml.releaseBackup
+backend/pom.xml.versionsBackup
+backend/release.properties
+
+# Python artifacts
+model-server/__pycache__/
+model-server/*.pyc
+model-server/venv/
+model-server/.env
+
+# Node.js dependencies
+frontend/node_modules/
+frontend/build/
+frontend/npm-debug.log
+
+# Docker
+docker-compose.override.yml
+
+# Log files
+*.log

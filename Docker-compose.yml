@@ -1,0 +1,74 @@
+# Use a modern version of Docker Compose
+version: '3.8'
+
+services:
+  # The Python Model Serving API
+  model-serving:
+    build: ./model-server
+    container_name: mizugado-api
+    ports:
+      - "6102:6102"
+    networks:
+      - mizugado-net # Assign to the shared network
+
+  # The MySQL Database
+  db:
+    image: mysql:8.0
+    container_name: mizugado-db
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpassword
+      MYSQL_DATABASE: appdb
+    volumes:
+      # This named volume makes the database data persistent
+      - db-data:/var/lib/mysql
+    ports:
+      - "3306:3306"
+    networks:
+      - mizugado-net # Assign to the shared network
+    # Healthcheck ensures the backend waits until the database is truly ready
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      timeout: 20s
+      retries: 10
+
+  # The Spring Boot Backend
+  backend:
+    build: ./backend
+    container_name: mizugado-backend
+    depends_on:
+      db:
+        condition: service_healthy # Waits for the db healthcheck to pass
+      model-serving:
+        condition: service_started # Waits for the model API to start
+    ports:
+      - "8080:8080"
+    environment:
+      # Use service names for communication inside the Docker network
+      - SPRING_DATASOURCE_URL=jdbc:mysql://db:3306/appdb?useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true
+      - SPRING_DATASOURCE_USERNAME=root
+      - SPRING_DATASOURCE_PASSWORD=rootpassword
+      # ✅ FIX: Renamed this variable to match what Spring Boot expects
+      - API_SERVICE_URL=http://model-serving:6102
+    networks:
+      - mizugado-net # Assign to the shared network
+
+  # The React Frontend
+  frontend:
+    build: ./frontend
+    container_name: mizugado-frontend
+    depends_on:
+      - backend
+    ports:
+      - "3000:80" # Connect host port 3000 to Nginx's container port 80
+    networks:
+      - mizugado-net # Assign to the shared network
+
+# Define the named volume for persistent database storage
+volumes:
+  db-data:
+
+# Define the shared network for all services
+networks:
+  mizugado-net:
+    driver: bridge
