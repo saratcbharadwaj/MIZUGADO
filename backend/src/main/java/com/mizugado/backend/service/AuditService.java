@@ -18,10 +18,8 @@ public class AuditService {
 
     }
 
-    // ✅ FIX: The constructor now accepts the API URL from application.properties
     public AuditService(WebClient.Builder webClientBuilder, @Value("${api.service.url}") String apiUrl) {
-        // The WebClient is now built using the URL from your configuration file,
-        // which allows it to work correctly inside Docker.
+
         this.webClient = webClientBuilder.baseUrl(apiUrl).build();
     }
 

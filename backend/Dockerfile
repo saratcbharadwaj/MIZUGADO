@@ -5,7 +5,6 @@ FROM openjdk:17-jdk-slim
 WORKDIR /app
 
 # Copy the compiled JAR file into the container
-# The JAR is created when you build the project with Maven
 COPY target/*.jar app.jar
 
 # Expose the port the backend runs on

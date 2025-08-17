@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom/client';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import App from './App';
 import AuthPage from './pages/AuthPage';
-import ChatPage from './pages/components/ChatPage'; // We will create the real one next
+import ChatPage from './pages/components/ChatPage'; 
 import './index.css';
 
 const router = createBrowserRouter([

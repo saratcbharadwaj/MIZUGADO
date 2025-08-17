@@ -28,15 +28,14 @@ export default function AuthPage() {
                 alert("Signup successful! Please log in.");
             }
         } catch (err) {
-            // --- THIS IS THE FIX ---
-            // Extract a readable string from the backend's error response.
+            
             let message = "An error occurred. Please try again.";
             if (err.response && err.response.data) {
                 // If the response data is an object with a message/error property, use that.
                 if (typeof err.response.data === 'object') {
                     message = err.response.data.message || err.response.data.error || "Login failed.";
                 }
-                // If the response data is just a string, use that.
+                
                 else if (typeof err.response.data === 'string') {
                     message = err.response.data;
                 }

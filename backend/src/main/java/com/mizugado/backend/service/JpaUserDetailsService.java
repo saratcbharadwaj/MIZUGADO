@@ -19,11 +19,11 @@ public class JpaUserDetailsService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        // Find the user from our database
+        // Finds the user from our database
         User user = userRepository.findByUsername(username)
                 .orElseThrow(() -> new UsernameNotFoundException("User not found with username: " + username));
 
-        // Convert our User entity to Spring Security's UserDetails object
+        // Converts our User entity to Spring Security's UserDetails object
         return new org.springframework.security.core.userdetails.User(
                 user.getUsername(), // Use the correct getter as defined in User class
                 user.getPassword(),

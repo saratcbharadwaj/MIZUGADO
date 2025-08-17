@@ -25,8 +25,8 @@ def health():
 
 @app.post("/predict")
 def predict(input: InputText):
-    # ✅ ADD THIS PRINT STATEMENT FOR DEBUGGING
-    # This will show the exact code received from the Java backend in your Docker logs.
+    # PRINT STATEMENT FOR DEBUGGING
+    # This will show the exact code received from the Java backend in Docker logs.
     print(f"--- Received code for analysis ---\n{input.text}\n----------------------------------")
 
     try:
@@ -42,7 +42,6 @@ def predict(input: InputText):
             "score": round(prediction["score"], 7)
         }
     except Exception as e:
-        # ✅ FIX: Added the 'detail=' key to the HTTPException
         raise HTTPException(status_code=500, detail=str(e))
 
 if __name__ == "__main__":

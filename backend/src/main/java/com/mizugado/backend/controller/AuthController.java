@@ -30,7 +30,6 @@ public class AuthController {
         }
     }
 
-    // --- THIS ENTIRE METHOD WAS MISSING ---
     @PostMapping("/login")
     public ResponseEntity<?> authenticateUser(@RequestBody LoginRequest loginRequest) {
         try {

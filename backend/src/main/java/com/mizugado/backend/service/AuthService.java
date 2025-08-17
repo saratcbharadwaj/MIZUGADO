@@ -25,7 +25,7 @@ public class AuthService {
         }
         User user = new User();
         user.setUsername(signUpRequest.username());
-        // Save the password directly without encoding
+        // Saves password directly without encoding
         user.setPassword(signUpRequest.password());
 
         userRepository.save(user);

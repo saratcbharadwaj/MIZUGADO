@@ -1,5 +1,4 @@
-# Use a modern version of Docker Compose
-version: '3.8'
+version: 3.8
 
 services:
   # The Python Model Serving API
@@ -48,7 +47,6 @@ services:
       - SPRING_DATASOURCE_URL=jdbc:mysql://db:3306/appdb?useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true
       - SPRING_DATASOURCE_USERNAME=root
       - SPRING_DATASOURCE_PASSWORD=rootpassword
-      # ✅ FIX: Renamed this variable to match what Spring Boot expects
       - API_SERVICE_URL=http://model-serving:6102
     networks:
       - mizugado-net # Assign to the shared network
@@ -64,7 +62,7 @@ services:
     networks:
       - mizugado-net # Assign to the shared network
 
-# Define the named volume for persistent database storage
+# Named volume for persistent storage.
 volumes:
   db-data:
 

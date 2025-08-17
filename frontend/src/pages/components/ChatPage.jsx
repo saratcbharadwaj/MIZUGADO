@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import '../../styles/ChatPage.css'; // Make sure this path is correct
+import '../../styles/ChatPage.css'; 
 
 const ChatPage = () => {
     const [messages, setMessages] = useState([

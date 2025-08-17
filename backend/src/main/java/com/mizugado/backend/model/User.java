@@ -23,8 +23,6 @@ public class User {
     @Column(nullable = false)
     private String password;
 
-    // --- MANUALLY ADDED CODE ---
-    // No-argument constructor
     public User() {
     }
 
@@ -53,7 +51,6 @@ public class User {
         this.password = password;
     }
 
-    // It's good practice to also include equals(), hashCode(), and toString()
     @Override
     public boolean equals(Object o) {
         if (this == o) {
