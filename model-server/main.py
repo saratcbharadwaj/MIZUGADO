@@ -39,7 +39,7 @@ def predict(input: InputText):
         return {
             "label": prediction["label"],
             "meaning": label_map[prediction["label"]],
-            "score": round(prediction["score"], 7)
+            "score": round(prediction["score"], 10)
         }
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
