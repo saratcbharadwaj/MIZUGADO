@@ -1,4 +1,5 @@
-version: "3.8"
+# Use a modern version of Docker Compose
+version: '3.8'
 
 services:
   # The Python Model Serving API
@@ -48,6 +49,7 @@ services:
       - SPRING_DATASOURCE_USERNAME=root
       - SPRING_DATASOURCE_PASSWORD=rootpassword
       - API_SERVICE_URL=http://model-serving:6102
+      - SPRING_JPA_HIBERNATE_DDL_AUTO=update
     networks:
       - mizugado-net # Assign to the shared network
 
@@ -62,7 +64,7 @@ services:
     networks:
       - mizugado-net # Assign to the shared network
 
-# Named volume for persistent storage.
+# Define the named volume for persistent database storage
 volumes:
   db-data:
 
